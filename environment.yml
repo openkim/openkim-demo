@@ -1,0 +1,7 @@
+name: openkim-tutorial
+channels:
+  - conda-forge
+dependencies:
+  - lammps
+  - openkim-models
+  
