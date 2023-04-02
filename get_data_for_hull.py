@@ -1,4 +1,5 @@
 import requests
+import numpy as np
 
 def get_formation_energies(species_list,model=None):
     """
@@ -10,11 +11,8 @@ def get_formation_energies(species_list,model=None):
             OpenKIM model to query for. If this is None, reference data are queried for instead
 
     Returns:
-        List of dicts, each corresponding to an OpenKIM test relaxation or reference data
-
-            element-fractions: list of molar fractions of each element in species_list in this material, must sum to 1.
-            formation-energy-per-atom: potential energy per atom relative to the crystalline ground states of each constituent element
-            prototype-label: AFLOW prototype label
+        * (Nxlen(species_list)) ndarray representing N points to buld the hull out of. The last column is the energy, the others are the molar fractions of each element in species_list except the first
+        * N-length list of prototype labels
     """
     assert len(species_list>1)
     if model==None:
@@ -41,6 +39,7 @@ def get_formation_energies(species_list,model=None):
     # array of fractions of each element
     # formation energy per atom
     # prototype label
+    for entry in result:
     
 
             
