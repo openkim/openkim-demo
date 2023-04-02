@@ -22,10 +22,11 @@ def get_formation_energies(species_list,model=None):
         model_query='"meta.subject.extended-id":"%s"'%model
         meta_type='tr'
     result = requests.post("https://query.openkim.org/api",data={'query': '{"meta.type":"%s",%s,"property-id":"tag:staff@noreply.openkim.org,2023-02-21:property/binding-energy-crystal","stoichiometric-species.source-value":{"$in":%s}}'%(meta_type,model_query,str(species_list).replace("'",'"')), 'fields': '{"prototype-label.source-value":1,"stoichiometric-species.source-value":1,"binding-potential-energy-per-formula.source-value":1}', 'database': 'data'}).json()
-    elemental_references = {}
     # initialize dict for elemental references
+    elemental_references = {}
     for species in species_list:
         elemental_references[species]=0.
+    
     for entry in result:
         species=entry["stoichiometric-species"]["source-value"]
         if len(species)==1:
