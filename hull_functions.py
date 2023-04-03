@@ -1,6 +1,7 @@
 import requests
 import numpy as np
 from curses.ascii import isalpha, isdigit
+from scipy.spatial import ConvexHull
 
 def get_stoich_reduced_list_from_prototype(prototype_label):
     """
@@ -72,7 +73,6 @@ def get_formation_energies(species_list,model=None):
             if energy < elemental_references[species_index]:
                 elemental_references[species_index] = energy
                 reference_indices[species_list.index(species)] = i
-    print(elemental_references)
     #now build the hull list of dicts
     prototype_labels=[]
     hull_pts = np.ndarray((len(result),len(species_list)))
@@ -85,9 +85,36 @@ def get_formation_energies(species_list,model=None):
         for (element,stoich_num) in zip(curr_species_list,stoich_reduced_list):
             stoich_reduced_list_full[species_list.index(element)]=stoich_num
         #set the coordinates to the stoichiometry, skipping first element
-        hull_pts[i,:-1]=[elem_num/sum(stoich_reduced_list_full) for elem_num in stoich_reduced_list_full][1:]
-        hull_pts[i,-1]=entry["binding-potential-energy-per-formula"]["source-value"]-np.dot(elemental_references,stoich_reduced_list_full)
+        num_atoms_in_formula = sum(stoich_reduced_list_full)
+        hull_pts[i,:-1]=[elem_num/num_atoms_in_formula for elem_num in stoich_reduced_list_full][1:]
+        hull_pts[i,-1]=(entry["binding-potential-energy-per-formula"]["source-value"]-np.dot(elemental_references,stoich_reduced_list_full))/num_atoms_in_formula
 
     return hull_pts,prototype_labels,reference_indices
 
-            
+def get_2d_lower_hull(species_list,model=None):
+    """
+    Build 2d lower hull from OpenKim query
+    Args:
+        species_list:
+            List of all species to query for. Every result or data containing any combination of one or more of these will be returned
+        model:
+            OpenKIM model to query for. If this is None, reference data are queried for instead
+
+    Returns:
+        * (N, len(species_list)) ndarray representing N points the hull was built from. The last column is the energy, the others are the molar fractions of each element in species_list except the first
+        * N-length list of prototype labels
+        * list of indices corresponding to points constituting the lower hull
+    """
+    hull_pts,prototype_labels,reference_indices=get_formation_energies(species_list,model)
+
+    hull = ConvexHull(hull_pts)
+
+    #In 2D, ConvexHull.vertices are guaranteed to be CCW. So we just need to go from reference_indices[0] to [1], possibly wrapping around
+
+    lower_hull_vertices = [reference_indices[0]]
+    i = list(hull.vertices).index(reference_indices[0])
+    while hull.vertices[i] != reference_indices[1]:
+        i = (i+1)%len(hull.vertices)
+        lower_hull_vertices.append(hull.vertices[i])
+
+    return hull_pts, prototype_labels, lower_hull_vertices
