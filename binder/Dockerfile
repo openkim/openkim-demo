@@ -1,7 +1,12 @@
 # base image
 FROM ghcr.io/openkim/developer-platform:latest-minimal
 
-USER root
-RUN apt-get update && apt-get install -y git
 RUN pip install --no-cache-dir notebook jupyterlab
-RUN cd /home/openkim && git clone https://github.com/ilia-nikiforov-umn/mach-2023-openkim-tutorial
+
+# Make sure the contents of our repo are in ${HOME}
+COPY .. ${HOME}
+USER root
+RUN chown -R ${NB_UID} ${HOME}
+USER ${NB_USER}
+
+
