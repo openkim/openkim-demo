@@ -5,3 +5,4 @@ USER root
 RUN apt-get update && apt-get install -y git
 RUN pip install --no-cache-dir notebook jupyterlab
 RUN cd /home/openkim && git clone https://github.com/ilia-nikiforov-umn/mach-2023-openkim-tutorial
+
