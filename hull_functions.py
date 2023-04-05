@@ -2,6 +2,7 @@ import requests
 import numpy as np
 from curses.ascii import isalpha, isdigit
 from scipy.spatial import ConvexHull
+import matplotlib.pyplot as plt
 
 def get_stoich_reduced_list_from_prototype(prototype_label):
     """
@@ -118,3 +119,49 @@ def get_2d_lower_hull(species_list,model=None):
         lower_hull_vertices.append(hull.vertices[i])
 
     return hull_pts, prototype_labels, lower_hull_vertices
+
+def plot_model_hull_vs_rd(species,model):
+    """
+    Plot binary hull of model vs. binary hull of reference data
+    Args:
+        species:
+            List species
+        model:
+            OpenKIM model
+    """        
+    rd_form_engy_array,rd_prototype_labels,rd_hull_vert_inds=get_2d_lower_hull(species)
+    mo_form_engy_array,mo_prototype_labels,mo_hull_vert_inds=get_2d_lower_hull(species,model)
+
+    # get arrays of vertex coords and protos
+    rd_hull_verts = rd_form_engy_array[rd_hull_vert_inds]
+    rd_hull_protos = [rd_prototype_labels[i] for i in rd_hull_vert_inds]
+    mo_hull_verts = mo_form_engy_array[mo_hull_vert_inds]
+
+    mo_hull_vert_inds_correct=[]
+    mo_hull_vert_inds_incorrect=[]
+    for i in mo_hull_vert_inds:
+        if mo_prototype_labels[i] in rd_hull_protos:
+            mo_hull_vert_inds_correct.append(i)
+        else:
+            mo_hull_vert_inds_incorrect.append(i)
+
+    mo_hull_verts_correct = mo_form_engy_array[mo_hull_vert_inds_correct]
+    mo_hull_verts_incorrect = mo_form_engy_array[mo_hull_vert_inds_incorrect]
+
+    plt.rcParams['font.size']=16
+    fig, ax = plt.subplots()
+    ax.set_xlim(0.,1.)
+    ax.set_ylim(ymin=1.2*min(min(rd_form_engy_array[:,1]),min(mo_form_engy_array[:,1])),ymax=0.)
+    ax.set_xlabel("Mole fraction of %s"%species[1])
+    ax.set_ylabel("$H_f$ (eV/atom)")
+    ax.set_title(model+"\n")
+
+
+    ax.plot(mo_hull_verts[:,0],mo_hull_verts[:,1],"k-")
+    ip_pts,=ax.plot(mo_form_engy_array[:,0],mo_form_engy_array[:,1],"kx",label="IP calculations")
+    ax.plot(rd_hull_verts[:,0],rd_hull_verts[:,1],"m--")
+    rd_pts,=ax.plot(rd_form_engy_array[:,0],rd_form_engy_array[:,1],"mx",label="DFT calculations")
+    ip_hull_correct,=ax.plot(mo_hull_verts_correct[:,0],mo_hull_verts_correct[:,1],"bo",label="Prototype agrees\nwith DFT")
+    ip_hull_incorrect,=ax.plot(mo_hull_verts_incorrect[:,0],mo_hull_verts_incorrect[:,1],"ro",label="Prototype disagrees\nwith DFT") 
+
+    fig.legend(handles=[ip_pts,rd_pts,ip_hull_correct,ip_hull_incorrect],loc="lower right")
