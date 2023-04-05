@@ -1,18 +1,16 @@
-units metal
+kim init EAM_Dynamo_ErcolessiAdams_1994_Al__MO_123629422045_005 metal
 boundary p p p
 
-# Set the lattice constant from outside knowledge
-variable a0 equal 4.05 
+# get the lattice constant automatically from KIM
+kim query a0 get_lattice_constant_cubic crystal=["fcc"] species=["Al"] units=["angstrom"]
 
 lattice fcc ${a0}
 region simbox block 0 1 0 1 0 1 units lattice
 create_box 1 simbox
 create_atoms 1 box
 mass 1 1.0
-pair_style eam/alloy
 
-# Parameter file for the Ercolessi-Adams EAM potential for Al
-pair_coeff * * Al_EA.eam.alloy
+kim interactions Al
 
 # Run the simulation
 run 0
