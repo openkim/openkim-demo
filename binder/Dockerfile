@@ -9,3 +9,4 @@ COPY . /home/openkim/mach-2023-openkim-tutorial/
 RUN chown -R openkim /home/openkim
 USER openkim
 ENV SHELL=/bin/bash
+ENV LD_LIBRARY_PATH=:/usr/local/lib
