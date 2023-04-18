@@ -5,7 +5,7 @@ USER root
 RUN pip install --no-cache-dir notebook jupyterlab
 
 # Make sure the contents of our repo are in ${HOME}
-COPY . /home/openkim/mach-2023-openkim-tutorial/
+COPY . /home/openkim/openkim-demo/
 RUN chown -R openkim /home/openkim
 USER openkim
 ENV SHELL=/bin/bash
