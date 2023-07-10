@@ -1,5 +1,5 @@
 # base image
-FROM ghcr.io/openkim/developer-platform@sha256:bb1a32c0aa7147643f234be7b9341e4e984eea0de93f438ccc73459da7bc0e32
+FROM FROM ghcr.io/ilia-nikiforov-umn/developer-platform:1.2.2-ilia-dev-labels-0.1-minimal
 
 USER root
 RUN pip install --no-cache-dir notebook jupyterlab
