@@ -1,5 +1,5 @@
 # base image
-FROM FROM ghcr.io/ilia-nikiforov-umn/developer-platform:1.2.2-ilia-dev-labels-0.1-minimal
+FROM ghcr.io/ilia-nikiforov-umn/developer-platform:1.2.2-ilia-dev-labels-0.1-minimal
 
 USER root
 RUN pip install --no-cache-dir notebook jupyterlab
