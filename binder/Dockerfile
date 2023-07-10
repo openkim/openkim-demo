@@ -1,5 +1,5 @@
 # base image
-FROM ghcr.io/ilia-nikiforov-umn/developer-platform@sha256:545d348368f79d9416f201a35b2c80ac365a205c4ad8614808a9c657fc78c55c
+FROM ghcr.io/ilia-nikiforov-umn/developer-platform@sha256:b8a591ca1d027b7761353a062b6a21c27104fc65c49fe5eb50ca0fa308cbc55b
 
 USER root
 RUN pip install --no-cache-dir notebook jupyterlab
