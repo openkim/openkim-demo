@@ -1,0 +1,13 @@
+units           metal
+atom_style      charge
+neigh_modify one 4000
+
+read_data data.quartz
+
+pair_style buck/coul/long 11.0
+kspace_style pppm 1.0e-5
+pair_coeff 1 1 659.595398 0.3860905475 26.836679
+pair_coeff 2 2 3150.462646 0.3506986443 626.751953
+pair_coeff 1 2 27029.419922 0.19385081938 148.099091
+
+run 0

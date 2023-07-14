@@ -1,0 +1,7 @@
+kim init Sim_LAMMPS_Buckingham_CarreHorbachIspas_2008_SiO__SM_886641404623_000 metal
+
+read_data data.quartz
+
+kim interactions O Si
+
+run 0

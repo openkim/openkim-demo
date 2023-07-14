@@ -1,61 +1,4 @@
-# Testsystem for core-shell model compared to Mitchel and Finchham using KIM
-#
-# Description:
-#
-# Modified from non-KIM example in examples/coreshell/in.coreshell
-# Thermo outputs should be identical between this KIM example and the above. 
-# The extra data and commands for "output via chunk method" are omitted.
-#
-# This example demonstrates usage of OpenKIM Simulator Models (SM) for bonded
-# force fields using LAMMPS type labels. Compared to the original core-shell
-# example, the SM initializes and provides parameters for pair and bonded interactions, 
-# as well as charges and masses. The user, therefore, only needs to provide 
-# the atom positions and bonding topology, and assign correct atom and bond type labels.
-# The user must also define core/shell atom groups and the required temp/cs compute and 
-# thermostat fix_modify.
-#
-# KIM bond, angle, dihedral and improper type labels must always be dash-separated
-# atom type labels, i.e. the bond between atom types `NaS` and `NaC` must have the label `NaS-NaC`
-# or `NaC-NaS`.
-#
-# Documentation for the specific SM, including an enumeration of supported atom types, is here:
-# `https://openkim.org/id/Sim_LAMMPS_CoreShell_MitchellFincham_1993_NaCl__SM_672022050407_000`
-#
-# More information about the KIM SM interface and LAMMPS type labels:
-# `https://docs.lammps.org/kim_commands.html`
-# `https://docs.lammps.org/Howto_type_labels.html`
-#
-# Original file: Hendrik Heenen, June 2014 
-# KIM version: ilia Nikiforov, July 2023
-#
-# Requirement: 
-#
-# This example requires that the KIM Simulator Model (SM)
-# `Sim_LAMMPS_CoreShell_MitchellFincham_1993_NaCl__SM_672022050407_000`
-# is installed.  This can be done with the command
-#   kim-api-collections-management install user Sim_LAMMPS_CoreShell_MitchellFincham_1993_NaCl__SM_672022050407_000
-# If this command does not work, you may need to setup your PATH to find the utility.
-# If you installed the kim-api using the LAMMPS CMake build, you can do the following
-# (where the current working directory is assumed to be the LAMMPS build directory)
-#   source ./kim_build-prefix/bin/kim-api-activate
-# If you installed the kim-api using the LAMMPS Make build, you can do the following
-# (where the current working directory is assumed to be the LAMMPS src directory)
-#   source ../lib/kim/installed-kim-api-X.Y.Z/bin/kim-api-activate
-# (where you should relplace X.Y.Z with the appropriate kim-api version number).
-#
-# Or, see `https://openkim.org/doc/obtaining-models` for alternative options.
-#
-
-# ------------------------ INITIALIZATION ----------------------------
-
-dimension	3
-boundary	p p p
-
-# ----------------------- ATOM DEFINITION ----------------------------
-
 kim init Sim_LAMMPS_CoreShell_MitchellFincham_1993_NaCl__SM_672022050407_000 metal
-
-# ------------------------ READ DATA ---------------------------------
 
 read_data data.kim-bonded.coreshell
 
@@ -64,10 +7,6 @@ group cores type 1 2
 group shells type 3 4
 
 kim interactions
-
-# ------------------------ Equilibration Run -------------------------------
-
-reset_timestep 0
 
 thermo 50
 thermo_style custom step etotal pe ke temp press &

@@ -1,14 +1,5 @@
-# Testsystem for core-shell model compared to Mitchel and Finchham
-# Hendrik Heenen, June 2014
-
-# ------------------------ INITIALIZATION ----------------------------
-
 units 		metal
-dimension	3
-boundary	p	p	p
 atom_style	full
-
-# ----------------------- ATOM DEFINITION ----------------------------
 
 read_data data.coreshell
 
@@ -17,8 +8,6 @@ group shells type 3 4
 
 neighbor 2.0 bin
 comm_modify vel yes
-
-# ------------------------ FORCE FIELDS ------------------------------
 
 kspace_style ewald 1.0e-6
 pair_style   born/coul/long/cs 20.0 20.0    # A, rho, sigma=0, C, D 
@@ -30,10 +19,6 @@ pair_coeff   4 4 405774.0 0.23768 0.00 72.40 145.40 #Cl-Cl
 bond_style harmonic
 bond_coeff 1 63.014 0.0
 bond_coeff 2 25.724 0.0
-
-# ------------------------ Equilibration Run -------------------------------
-
-reset_timestep 0
 
 thermo 50
 thermo_style custom step etotal pe ke temp press &
@@ -61,7 +46,5 @@ timestep 0.002
 run 500
 
 unfix thermoberendsen
-
-# ------------------------ Dynamic Run -------------------------------
 
 run 1000
