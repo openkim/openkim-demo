@@ -1,4 +1,6 @@
+# Initialize
 units metal
+
 # Setup diamond crystal
 boundary         p p p
 lattice          diamond 5.43
@@ -6,8 +8,13 @@ region           simbox block 0 1 0 1 0 1 units lattice
 create_box       1 simbox
 create_atoms     1 box
 mass             1 28.0855
+
+# Define interactions
 pair_style sw
 pair_coeff * * ../potentials/Si.sw Si
+
 # Compute energy
 run 0
-write_data Si.sw.data
+
+# Write configuration
+write_data Si.data.tmp

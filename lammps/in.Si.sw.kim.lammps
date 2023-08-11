@@ -1,5 +1,6 @@
 # Define KIM model
 kim init         SW_StillingerWeber_1985_Si__MO_405512056662_006 metal
+
 # Setup diamond crystal
 boundary         p p p
 lattice          diamond 5.43
@@ -7,7 +8,9 @@ region           simbox block 0 1 0 1 0 1 units lattice
 create_box       1 simbox
 create_atoms     1 box
 mass             1 28.0855
+
 # Define atom type to species mapping
 kim interactions Si
+
 # Compute energy
 run 0

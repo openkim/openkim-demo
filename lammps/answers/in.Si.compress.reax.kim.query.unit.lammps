@@ -6,7 +6,7 @@ kim query        a0 get_lattice_constant_cubic crystal=["diamond"] species=["Si"
 
 # Setup diamond crystal
 boundary         p p p
-lattice          diamond $(v_a0*v__u_distance) # Convert from angstroms to whatever the model uses
+lattice          diamond $(v_a0*v__u_distance*0.99) # Convert from angstroms to whatever the model uses
 region           simbox block 0 1 0 1 0 1 units lattice
 create_box       1 simbox
 create_atoms     1 box
@@ -17,9 +17,10 @@ kim interactions Si
 
 # Convert outputs to metal units
 variable        PotEng_eV equal pe/${_u_energy} 
+variable        Press_bar equal press/${_u_pressure}
 
 # Create a custom thermo output that writes these converted outputs
-thermo_style custom step v_PotEng_eV pe
+thermo_style custom step v_PotEng_eV v_Press_bar pe press
 
 # Compute energy
 run 0

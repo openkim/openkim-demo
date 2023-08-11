@@ -1,6 +1,8 @@
+# Initialize
 units real
 atom_style charge
 neigh_modify one 4000
+
 # Setup diamond crystal
 boundary         p p p
 lattice          diamond 5.43
@@ -8,8 +10,11 @@ region           simbox block 0 1 0 1 0 1 units lattice
 create_box       1 simbox
 create_atoms     1 box
 mass             1 28.0855
+
+# Define interactions
 pair_style reaxff  NULL safezone 3.0 mincap 100
 pair_coeff * * ../potentials/ffield-CaSiOH-lammps.reax.txt Si
 fix reaxqeq all qeq/reaxff 1 0.0 10.0 1.0e-6 reaxff
+
 # Compute energy
 run 0
