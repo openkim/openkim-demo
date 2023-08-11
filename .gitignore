@@ -1,4 +1,4 @@
 *.log
 log.*
-*.dump
+*.tmp
 __pycache__

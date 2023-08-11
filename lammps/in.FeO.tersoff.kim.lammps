@@ -1,0 +1,25 @@
+# Define KIM model
+kim init Tersoff_LAMMPS_ByggmastarNagelAlbe_2019_FeO__MO_608695023236_000 metal
+# Setup rock-salt crystal structure and assign masses
+boundary p p p
+
+lattice custom 4.3211 & 
+        a1  1.0 0.0 0.0  a2  0.0 1.0 0.0  a3  0.0 0.0 1.0 &
+        basis  0.0 0.0 0.0  basis  0.5 0.0 0.0 &
+        basis  0.0 0.5 0.5  basis  0.5 0.5 0.5 &
+        basis  0.5 0.0 0.5  basis  0.0 0.0 0.5 &
+        basis  0.5 0.5 0.0  basis  0.0 0.5 0.0
+
+region myreg block 0 1 0 1 0 1
+create_box 2 myreg
+create_atoms 1 box  &
+        basis  2 2  basis  4 2  basis  6 2  basis  8 2
+
+mass 1 55.845
+mass 2 15.999
+
+# Define atom type to species mapping
+kim interactions Fe O
+
+# Compute energy
+run 0
