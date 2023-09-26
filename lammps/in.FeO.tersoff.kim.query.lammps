@@ -1,14 +1,26 @@
-# Define KIM model and get Si diamond lattice parameter for this potential
-kim init         SW_StillingerWeber_1985_Si__MO_405512056662_006 metal
-kim query        a0 get_lattice_constant_cubic crystal=["diamond"] species=["Si"] units=["angstrom"]
-# Setup diamond crystal
-boundary         p p p
-lattice          diamond ${a0}
-region           simbox block 0 1 0 1 0 1 units lattice
-create_box       1 simbox
-create_atoms     1 box
-mass             1 28.0855
+# Define KIM model
+kim init Tersoff_LAMMPS_ByggmastarNagelAlbe_2019_FeO__MO_608695023236_000 metal
+kim query        a0 get_test_result test=["EquilibriumCrystalStructure_AB_cF8_225_a_b_FeO__TE_022630335531"] species=[] prop=["crystal-structure-npt"] keys=["a"] units=["angstrom"]
+# Setup rock-salt crystal structure and assign masses
+boundary p p p
+
+lattice custom ${a0} & 
+        a1  1.0 0.0 0.0  a2  0.0 1.0 0.0  a3  0.0 0.0 1.0 &
+        basis  0.0 0.0 0.0  basis  0.5 0.0 0.0 &
+        basis  0.0 0.5 0.5  basis  0.5 0.5 0.5 &
+        basis  0.5 0.0 0.5  basis  0.0 0.0 0.5 &
+        basis  0.5 0.5 0.0  basis  0.0 0.5 0.0
+
+region myreg block 0 1 0 1 0 1
+create_box 2 myreg
+create_atoms 1 box  &
+        basis  2 2  basis  4 2  basis  6 2  basis  8 2
+
+mass 1 55.845
+mass 2 15.999
+
 # Define atom type to species mapping
-kim interactions Si
+kim interactions Fe O
+
 # Compute energy
 run 0

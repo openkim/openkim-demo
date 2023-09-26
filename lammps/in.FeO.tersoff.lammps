@@ -1,4 +1,6 @@
+# Initialize
 units metal
+
 # Setup rock-salt crystal structure and assign masses
 boundary p p p
 
