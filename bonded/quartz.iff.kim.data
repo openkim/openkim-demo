@@ -14,28 +14,23 @@ CHARMM-GUI lammps input
      -8.5096       8.5096 ylo yhi
      -5.4052       5.4052 zlo zhi
 
-Masses
+Atom Type Labels
 
-       1        15.999  # IOC23
-       2        28.086  # ISC4
+       1  IOC23
+       2  ISC4
 
-Pair Coeffs
+Bond Type Labels
 
-       1 0.05400000000000 3.09141855194698 # IOC23
-       2 0.09300000000000 3.69722968028241 # ISC4
+       1  ISC4-IOC23
 
-Bond Coeffs
+Angle Type Labels
 
-       1  285.000   1.6800 # ISC4 IOC23
+       1  IOC23-ISC4-IOC23
+       2  ISC4-IOC23-ISC4
 
-Angle Coeffs
+Dihedral Type Labels
 
-       1  100.00000  109.50000    0.00000    0.00000 # IOC23 ISC4 IOC23
-       2  100.00000  149.00000    0.00000    0.00000 # ISC4 IOC23 ISC4
-
-Dihedral Coeffs
-
-       1       0.0000        2            0 0.00 # ISC4 IOC23 ISC4 IOC23
+       1  ISC4-IOC23-ISC4-IOC23
 
 Atoms
 

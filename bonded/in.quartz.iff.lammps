@@ -12,7 +12,7 @@ dihedral_style  charmm
 special_bonds   lj/coul 0.0 0.0 1.0
 improper_style  harmonic
 
-# Read quartz crystal coordinates, topology, and coefficients
+# Read quartz crystal coordinates, charges, topology, and coefficients
 read_data       quartz.iff.data
 
 # Compute energy
