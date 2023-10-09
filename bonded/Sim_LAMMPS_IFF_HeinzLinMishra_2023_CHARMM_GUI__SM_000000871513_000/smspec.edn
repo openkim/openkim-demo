@@ -1,10 +1,9 @@
 {
     "kim-api-sm-schema-version" 1 
     "simulator-name" "LAMMPS" 
-    "simulator-version" "15 Sep 2022" 
+    "simulator-version" "15 Jun 2023" 
     "units" "real" 
     "model-init" ["atom_style full" "neigh_modify one 4000"]
-    "force-field-type" "bonded" 
     "model-defn" [
         "bond_style harmonic" 
         "angle_style charmm" 
@@ -16,15 +15,8 @@
         "if $(count(sm_charged))>0 then \"special_bonds lj/coul 0 0 1\""
         "if (${kim_periodic}==2)&&($(count(sm_charged))>0) then \"kspace_modify slab 3.0\""
         "pair_modify mix arithmetic" 
-        "KIM_SET_TYPE_PARAMETERS bonded_ff lammps @<parameter-file-1>@"                
-        "KIM_SET_TYPE_PARAMETERS mass @<parameter-file-2>@"
+        "include @<parameter-file-1>@"
     ] 
     "model-name" "Sim_LAMMPS_IFF_HeinzLinMishra_2023_CHARMM_GUI__SM_000000871513_000" 
     "supported-species" "IAG IAL IAU AUL AUD AUS ICU INI IPB IPD IPT IAC ICA ICE IES IIR IFE IRH ISR ITH IYB IK_CM ISY1 ISY2 IAY1 IAY2 IMY1 IAYT1 IAYT2 IOY1 IOY2 IOY3 IOY4 IOY5 IOY6 IOY7 IOY8 IOY9 IHOK IHOC ST ICA_S ISC1 ISC2 ISC3 IS_AN ICA_A ICA_E ICA_T IAC1 IAC2 IOC1 IOC2 IOC3 IOC4 IOC5 IOC6 IOC7 IOC8 IOC9 IOC10 IOC11 IOC12 IOC13 IOC14 IH_SC IO_SC ISC4 IOC23 IOC24 IHOY ICA_G ISCS IOCS IO2_SC IH1O ICA_H IPAP IOAP1 IOAP2 IHOP IHPEO ICPEO IOPEO IMO1 IMO2 ISM1 ISM2 ISM3 ISM4 ALO1 OAL1 CRO1 OCR1 FEO1 OFE1 CAO1 OCA1 MGO1 OMG1 NIO1 ONI1 CAO2 OCA2 NIO2 ONI2 MGO2 OMG2 ICG1 ICGE IW1 IW2 ISW1 ISW2 ISW3 ISW4 LI COO OCO1 OCO2 H2G N2G O2G" 
-    "force-field-limits" [
-        "number-atom-types 123" 
-        "number-bond-types 123" 
-        "number-angle-types 343" 
-        "number-dihedral-types 683"
-    ]
 }

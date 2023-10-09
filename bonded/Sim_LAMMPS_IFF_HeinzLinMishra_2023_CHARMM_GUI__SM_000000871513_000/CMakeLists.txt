@@ -10,6 +10,5 @@ kim_api_items_setup_after_project(ITEM_TYPE "simulatorModel")
 add_kim_api_model_library(
   NAME            ${PROJECT_NAME}
   SM_SPEC_FILE    "smspec.edn"
-  PARAMETER_FILES "iff.params"
-                  "iff.mass"
+  PARAMETER_FILES "iff.lammps"
   )

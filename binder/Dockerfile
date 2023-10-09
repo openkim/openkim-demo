@@ -1,5 +1,5 @@
 # base image
-FROM ghcr.io/ilia-nikiforov-umn/developer-platform@sha256:b8a591ca1d027b7761353a062b6a21c27104fc65c49fe5eb50ca0fa308cbc55b
+FROM ghcr.io/ilia-nikiforov-umn/developer-platform@sha256:d7ca16a666b66f98e9f6a9f8a32ae7cb307674a01535737b495d8f1838e38628
 
 USER root
 RUN pip install --no-cache-dir notebook jupyterlab nglview
