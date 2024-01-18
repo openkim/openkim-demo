@@ -1,0 +1,11 @@
+# Initialize
+kim init Sim_LAMMPS_IFF_CHARMM_GUI_HeinzLinMishra_2023_Nanomaterials__SM_232384752957_000 real
+
+# Read quartz crystal coordinates, charges, and topology
+read_data       quartz.iff.kim.data
+
+# Define interactions
+kim interactions fixed_types
+
+# Compute energy
+run 0
