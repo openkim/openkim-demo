@@ -1,5 +1,5 @@
 # base image
-FROM ghcr.io/openkim/developer-platform@sha256:ac55a97adbf8b5e844ba7f1a05560f07925e81383c828eb9148dd2937c73e637
+FROM ghcr.io/openkim/developer-platform@sha256:d30f0c5d0164196d0df89b8daf1189da39218696c0ff736d5579d387159e0fb6
 
 USER root
 RUN pip install --no-cache-dir notebook jupyterlab nglview
