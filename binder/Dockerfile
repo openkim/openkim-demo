@@ -1,12 +1,11 @@
 # base image
-FROM ghcr.io/openkim/developer-platform@sha256:eaf31d5fbc01d16631c85683b2ee26d59990a1950113cb175bb3754c0f2f10fc
+FROM ghcr.io/openkim/developer-platform@sha256:925802c5cac32b1e9b0f7770c633be8094a11fe7af467c4fd49b7fc4766c5954
 
 USER root
-RUN pip install --no-cache-dir notebook jupyterlab nglview
+RUN pip install --no-cache-dir notebook jupyterlab nglview==3.1.2
 
 # Make sure the contents of our repo are in ${HOME}
 COPY . /home/openkim/openkim-demo/
 RUN chown -R openkim /home/openkim
 USER openkim
 ENV SHELL=/bin/bash
-ENV LD_LIBRARY_PATH=:/usr/local/lib
