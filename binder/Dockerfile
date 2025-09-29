@@ -1,4 +1,3 @@
-# base image
 FROM ghcr.io/openkim/developer-platform:v1.7.8-minimal
 
 USER root
