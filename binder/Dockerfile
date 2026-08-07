@@ -1,4 +1,4 @@
-FROM ghcr.io/openkim/developer-platform:v1.8.15-minimal
+FROM ghcr.io/openkim/developer-platform:v1.8.16-minimal
 
 USER root
 RUN pip install --no-cache-dir notebook jupyterlab==4.3.6 nglview==3.1.2
